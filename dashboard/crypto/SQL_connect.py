@@ -29,8 +29,7 @@ class SQLConnect:
         cur.close()
         self.conn.close()
 
-
-
+# test
 # connect_string = f'host=localhost dbname=postgres user=postgres password=mysecretpassword'
 # conn = psycopg2.connect(connect_string)
 # cur = conn.cursor()
