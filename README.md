@@ -1,1 +1,2 @@
-#SQL Grafana Project
+SQL Grafana Project
+
