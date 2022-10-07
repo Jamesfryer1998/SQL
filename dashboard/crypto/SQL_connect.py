@@ -15,7 +15,7 @@ class SQLConnect:
         query = f'''
         CREATE TABLE {self.ticker} (
             id SERIAL PRIMARY KEY,
-            date DATE,
+            time DATE,
             open FLOAT(4),
             high FLOAT(4),
             low FLOAT(4),
