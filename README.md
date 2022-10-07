@@ -5,5 +5,5 @@ GIT commit
 git commit -a 
 'i'
 'message'
-Esc, :, w, q
+Esc, :wq
 git push
