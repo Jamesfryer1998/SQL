@@ -17,16 +17,16 @@ class downloadData:
         print('Initializing search...')
 
         if os.path.isfile(f'{self.file_path}/{file}.csv') == True:
-            print('File exists')
+            print('File exists - No download required.')
         else:
             print(f'Downloading {ticker}-USD - {period}')
             ticker_data = yf.Ticker(f'{ticker}-USD')
             historical_data = ticker_data.history(period=period)
             df = pd.DataFrame(historical_data)
             df.drop(['Dividends', 'Stock Splits'], axis=1, inplace=True)
-            df.sort_index(ascending=recent_first, inplace=True)
-            df.reset_index(inplace=True)
-            df['Date'] = pd.to_datetime(df['Date'])
+            # df.sort_index(ascending=recent_first, inplace=True)
+            # df.reset_index(inplace=True)
+            df.index = pd.to_datetime(df.index)
             df.dropna()
 
             if len(df) == 0:
@@ -43,7 +43,7 @@ class downloadData:
         data = pd.read_csv(f'{self.file_path}/{self.file}.csv', sep='\t')
         return data
 
-download = downloadData('Cache')
-download.download_save_data('ETH', 'ytd')
-data = download.load_data()
-print(data)
+# download = downloadData('Cache')
+# download.download_save_data('ETH', 'ytd')
+# data = download.load_data()
+# print(data)
