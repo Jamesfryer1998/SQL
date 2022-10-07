@@ -7,4 +7,3 @@ git commit -a
 'message'
 Esc, :, w, q
 git push
-
