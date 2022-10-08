@@ -66,8 +66,6 @@ class SQLConnect:
                     print(f"    Values populated to {self.ticker}")
                     cur.close()
 
-#test
-
 SQL = SQLConnect('ETH', 'localhost', 'postgres', 'mysecretpassword')
 SQL.create_table()
 SQL.execute_values()
@@ -76,8 +74,6 @@ SQL.execute_values()
 # connect_string = f'host=localhost dbname=postgres user=postgres password=mysecretpassword'
 # conn = psycopg2.connect(connect_string)
 # cur = conn.cursor()
-
-
 
 # ticker = 'ETH'
 # sql = f'''
