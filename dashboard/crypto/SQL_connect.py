@@ -66,6 +66,8 @@ class SQLConnect:
                     print(f"    Values populated to {self.ticker}")
                     cur.close()
 
+#test
+
 SQL = SQLConnect('ETH', 'localhost', 'postgres', 'mysecretpassword')
 SQL.create_table()
 SQL.execute_values()
