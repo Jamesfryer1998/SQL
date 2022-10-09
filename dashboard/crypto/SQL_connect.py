@@ -66,6 +66,9 @@ class SQLConnect:
                     print(f"    Values populated to {self.ticker}")
                     cur.close()
 
+        def remove_table(self):
+            return
+
 SQL = SQLConnect('ETH', 'localhost', 'postgres', 'mysecretpassword')
 SQL.create_table()
 SQL.execute_values()

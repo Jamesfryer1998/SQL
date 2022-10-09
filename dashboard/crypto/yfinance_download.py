@@ -4,6 +4,7 @@ import pandas as pd
 import datetime
 import yfinance as yf
 import os
+import regex as re
 
 class downloadData:
     def __init__(self, file_path=None):
@@ -38,11 +39,22 @@ class downloadData:
 
         self.file = file
 
+    def remove_files(self):
+        files = os.listdir(self.file_path)
+        for file in files:
+            x = re.search(f'{self.time.date()}.csv', file)
+            if x == None:
+                # REMOVES ALL FILES
+                os.remove(f'./{self.file_path}/{file}')
+                print(f'{file} removed')
+                # print('Starts with ETH')
+
     def load_data(self):
         data = pd.read_csv(f'{self.file_path}/{self.file}.csv', sep='\t')
         return data
 
-# download = downloadData('Cache')
-# download.download_save_data('ETH', 'ytd')
-# data = download.load_data()
+download = downloadData('Cache')
+download.download_save_data('BTC', 'ytd')
+data = download.load_data()
+download.remove_files()
 # print(data)
