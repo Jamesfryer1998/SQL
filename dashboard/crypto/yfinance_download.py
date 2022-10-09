@@ -24,8 +24,6 @@ class downloadData:
             historical_data = ticker_data.history(period=period)
             df = pd.DataFrame(historical_data)
             df.drop(['Dividends', 'Stock Splits'], axis=1, inplace=True)
-            # df.sort_index(ascending=recent_first, inplace=True)
-            # df.reset_index(inplace=True)
             df.index.rename('time', inplace=True)
             df.index = pd.to_datetime(df.index)
             df.dropna()
