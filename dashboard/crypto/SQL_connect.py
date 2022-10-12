@@ -9,6 +9,7 @@ class SQLConnect:
         self.conn = psycopg2.connect(self.connect_string)
         download = downloadData('Cache')
         download.download_save_data(ticker, 'ytd')
+        download.remove_files()
         self.download = download
 
     def create_table(self):
@@ -28,9 +29,10 @@ class SQLConnect:
                 try:
                     cur.execute(query)
                     self.conn.commit()
-                    print(f'    Query Successfully Excecuted.')
+                    print('SQL: Query Successfully Excecuted.')
+                    print(f'    Table {self.ticker} created')
                 except psycopg2.errors.DuplicateTable as err:
-                    print(f'    SQL: {err}')
+                    print(f'SQL: {err}')
 
     def execute_values(self):
         """
@@ -52,7 +54,7 @@ class SQLConnect:
                 table_len = cur.fetchone()[0]
 
                 if table_len >= len(df):
-                    print('Table at sufficient count.')
+                    print('     Table at sufficient count.')
                     pass
                 elif table_len == 0:
                     try:
