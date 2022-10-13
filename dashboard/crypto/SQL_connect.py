@@ -69,7 +69,7 @@ class SQLConnect:
                         return None
                     print(f"    Values populated to {self.ticker}")
                     cur.close()
-                    
+
     # OPTION 1 (REMOVE ENTIRE TABLE, RE-UPLOAD NEW DF)
     # def remove_table(self):
     #     with self.conn:
@@ -148,7 +148,7 @@ class SQLConnect:
                     else:
                         return 0
 
-SQL = SQLConnect('BTC', 'localhost', 'postgres', 'mysecretpassword')
+SQL = SQLConnect('CHAIN', 'localhost', 'postgres', 'mysecretpassword')
 SQL.create_table()
 SQL.execute_values()
 SQL.check_tables()
