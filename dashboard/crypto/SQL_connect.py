@@ -7,6 +7,8 @@ class SQLConnect:
         self.ticker = ticker
         self.connect_string = f'host={host} dbname=postgres user={user} password={password}'
         self.conn = psycopg2.connect(self.connect_string)
+        self.time = datetime.datetime.now()
+        self.tables = None
         download = downloadData('Cache')
         download.download_save_data(ticker, 'ytd')
         download.remove_files()
@@ -58,7 +60,7 @@ class SQLConnect:
                     pass
                 elif table_len == 0:
                     try:
-                        extras.execute_values(cur, query, tuples)
+                        extras.execute_values(cur, query, tuples, page_size=len(df))
                         self.conn.commit()
                     except (Exception, psycopg2.DatabaseError) as error:
                         print("Error: %s" % error)
@@ -67,13 +69,78 @@ class SQLConnect:
                         return None
                     print(f"    Values populated to {self.ticker}")
                     cur.close()
+                    print(datetime.datetime.now() - self.time)
 
-        def remove_table(self):
-            return
+    # OPTION 1 (REMOVE ENTIRE TABLE, RE-UPLOAD NEW DF)
+    # def remove_table(self):
+    #     with self.conn:
+    #         with self.conn.cursor() as cur:
+    #             fetch_sql = '''SELECT table_name
+    #             FROM information_schema.tables
+    #             WHERE table_schema='public'
+    #             '''
+    #             cur.execute(fetch_sql)
+    #             cryptos = cur.fetchall()
+    #             reg_search = re.search('btc', str(cryptos))
+    #             print(cryptos)
+    #             print(reg_search)
+    #             if reg_search != None:
+    #                 # REMOVE TABLE
+    #                 print()
+    #             cur.close()
 
-SQL = SQLConnect('ETH', 'localhost', 'postgres', 'mysecretpassword')
+    # OPTION 2 ADD NEW DATA TO THE END OF EXISTING TABLE DATA
+    def check_tables(self):
+        # MAYBE PUT THIS IN __INIT__
+        with self.conn:
+            with self.conn.cursor() as cur:
+                fetch_sql = '''SELECT table_name
+                FROM information_schema.tables
+                WHERE table_schema='public'
+                '''
+                cur.execute(fetch_sql)
+                tables = cur.fetchall()
+                self.tables = tables
+
+
+    def update_table(self):
+        tables = self.tables
+
+        # Search for lower case ticker in query 
+        reg_search = re.search(self.ticker.lower(), str(tables))
+        if reg_search != None:
+            # get the current date
+            with self.conn:
+                with self.conn.cursor() as cur:
+                    query = f'''SELECT time
+                    FROM {self.ticker}
+                    limit 1
+                    '''
+                    cur.execute(query)
+                    date = str(cur.fetchall()[0][0])
+                    print(date)
+                    date = '2022-10-12'
+
+                    df = self.download.load_data()
+                    # print(df[df['time'] == date])
+                    start = df.index.searchsorted(date)
+    
+                    end = df.index.searchsorted(str(self.time.date()))
+                    print(end)
+
+
+
+
+
+        # print(tables)
+        # print(reg_search)
+
+
+SQL = SQLConnect('BTC', 'localhost', 'postgres', 'mysecretpassword')
 SQL.create_table()
 SQL.execute_values()
+SQL.check_tables()
+SQL.update_table()
 
 # # test
 # connect_string = f'host=localhost dbname=postgres user=postgres password=mysecretpassword'
