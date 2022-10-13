@@ -69,8 +69,7 @@ class SQLConnect:
                         return None
                     print(f"    Values populated to {self.ticker}")
                     cur.close()
-                    print(datetime.datetime.now() - self.time)
-
+                    
     # OPTION 1 (REMOVE ENTIRE TABLE, RE-UPLOAD NEW DF)
     # def remove_table(self):
     #     with self.conn:
@@ -101,7 +100,7 @@ class SQLConnect:
                 cur.execute(fetch_sql)
                 tables = cur.fetchall()
                 self.tables = tables
-
+                cur.close()
 
     def update_table(self):
         tables = self.tables
@@ -118,47 +117,41 @@ class SQLConnect:
                     '''
                     cur.execute(query)
                     date = str(cur.fetchall()[0][0])
-                    print(date)
-                    date = '2022-10-12'
 
+                    # delete this for it to work properly
+                    # date = '2022-10-12'
+                    
+                    # Defining df dates
                     df = self.download.load_data()
-                    # print(df[df['time'] == date])
-                    start = df.index.searchsorted(date)
-    
-                    end = df.index.searchsorted(str(self.time.date()))
-                    print(end)
+                    start = df[df['time'] == date].index[0]
+                    end = df[df['time'] == str(self.time.date())].index[0]
+                    df_slice = df.iloc[end:start]
 
+                    if len(df_slice) >= 1:
+                        # Extracting info from df
+                        tuples = [tuple(x) for x in df_slice.to_numpy()]
+                        cols = ','.join(list(df_slice.columns))
 
-
-
-
-        # print(tables)
-        # print(reg_search)
-
+                        # SQL query and connection
+                        query  = f'''INSERT INTO {self.ticker} ({cols})
+                        VALUES %s
+                        '''
+                        try:
+                            extras.execute_values(cur, query, tuples, page_size=len(df))
+                            self.conn.commit()
+                            print(f'     {self.ticker} successfully updated.')
+                        except (Exception, psycopg2.DatabaseError) as error:
+                            print("Error: %s" % error)
+                            self.conn.rollback()
+                            cur.close()
+                            return None
+                    else:
+                        return 0
 
 SQL = SQLConnect('BTC', 'localhost', 'postgres', 'mysecretpassword')
 SQL.create_table()
 SQL.execute_values()
 SQL.check_tables()
+
+# Comment this out if creating table for first time (maybe wont matter)
 SQL.update_table()
-
-# # test
-# connect_string = f'host=localhost dbname=postgres user=postgres password=mysecretpassword'
-# conn = psycopg2.connect(connect_string)
-# cur = conn.cursor()
-
-# ticker = 'ETH'
-# sql = f'''
-# COPY ETH FROM '/Users/james/Projects/SQL/Cache/ETH-2022-10-06.csv' DELIMITER ',' CSV HEADER;
-# '''
-
-# try:
-#     cur.execute(sql)
-#     conn.commit()
-# except psycopg2.errors.DuplicateTable as error:
-#     print(f'SKIP: Duplicated {ticker} TABLE')
-
-# # Close communications with database
-# cur.close()
-# conn.close()
-
