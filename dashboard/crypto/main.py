@@ -15,7 +15,6 @@ def main():
         SQL.create_table()
         SQL.execute_values()
         SQL.check_tables()
-        # Comment this out if creating table for first time (maybe wont matter)
         SQL.update_table()
 
     t2 = datetime.datetime.now()
