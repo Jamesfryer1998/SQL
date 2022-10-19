@@ -9,7 +9,7 @@ Esc, :wq
 git push
 
 # TODO
-- Remove old files (if f'{self.ticker}-{self.time.date()}.csv)
+- Find daily/monlty percentage change (maybe do this on python, or in SQL grafana queries)
 
 ## Startup
 
