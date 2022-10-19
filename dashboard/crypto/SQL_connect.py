@@ -148,7 +148,7 @@ class SQLConnect:
                     else:
                         return 0
 
-SQL = SQLConnect('CHAIN', 'localhost', 'postgres', 'mysecretpassword')
+SQL = SQLConnect('BTC', 'localhost', 'postgres', 'mysecretpassword')
 SQL.create_table()
 SQL.execute_values()
 SQL.check_tables()
