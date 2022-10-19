@@ -71,7 +71,6 @@ class SQLConnect:
                     cur.close()
 
     def check_tables(self):
-        # MAYBE PUT THIS IN __INIT__
         with self.conn:
             with self.conn.cursor() as cur:
                 fetch_sql = '''SELECT table_name
@@ -97,9 +96,6 @@ class SQLConnect:
                     '''
                     cur.execute(query)
                     date = str(cur.fetchall()[0][0])
-
-                    # delete this for it to work properly
-                    # date = '2022-10-12'
                     
                     # Defining df dates
                     df = self.download.load_data()

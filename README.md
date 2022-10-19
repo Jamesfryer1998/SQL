@@ -10,6 +10,10 @@
 
 # TODO
 - Find daily/monlty percentage change (maybe do this on python, or in SQL grafana queries)
+- Add NFT price data
+- NFT rank calculator
+- Have docker containers stored on a external volume (once deleted wont lose data)
+- 
 
 # Startup
 
@@ -19,5 +23,6 @@
 - docker stop some-postgres grafana
 
 ## Grafana
-http://127.0.0.1:3000/
-
+- http://127.0.0.1:3000/
+or
+- http://localhost:3000/
