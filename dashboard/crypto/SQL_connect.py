@@ -148,10 +148,10 @@ class SQLConnect:
                     else:
                         return 0
 
-SQL = SQLConnect('LINK', 'localhost', 'postgres', 'mysecretpassword')
-SQL.create_table()
-SQL.execute_values()
-SQL.check_tables()
+# SQL = SQLConnect('LINK', 'localhost', 'postgres', 'mysecretpassword')
+# SQL.create_table()
+# SQL.execute_values()
+# SQL.check_tables()
 
-# Comment this out if creating table for first time (maybe wont matter)
-SQL.update_table()
+# # Comment this out if creating table for first time (maybe wont matter)
+# SQL.update_table()
