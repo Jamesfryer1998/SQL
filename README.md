@@ -14,7 +14,7 @@ git push
 ## Startup
 
 # Docker
-docker start some-postgres grafana
+docker start some-postgres grafana (order dependant)
 docker inspect james_network (checks if containers are connetced to network)
 docker stop some-postgres grafana
 
