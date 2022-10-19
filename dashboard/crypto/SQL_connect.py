@@ -70,25 +70,6 @@ class SQLConnect:
                     print(f"    Values populated to {self.ticker}")
                     cur.close()
 
-    # OPTION 1 (REMOVE ENTIRE TABLE, RE-UPLOAD NEW DF)
-    # def remove_table(self):
-    #     with self.conn:
-    #         with self.conn.cursor() as cur:
-    #             fetch_sql = '''SELECT table_name
-    #             FROM information_schema.tables
-    #             WHERE table_schema='public'
-    #             '''
-    #             cur.execute(fetch_sql)
-    #             cryptos = cur.fetchall()
-    #             reg_search = re.search('btc', str(cryptos))
-    #             print(cryptos)
-    #             print(reg_search)
-    #             if reg_search != None:
-    #                 # REMOVE TABLE
-    #                 print()
-    #             cur.close()
-
-    # OPTION 2 ADD NEW DATA TO THE END OF EXISTING TABLE DATA
     def check_tables(self):
         # MAYBE PUT THIS IN __INIT__
         with self.conn:
@@ -104,7 +85,6 @@ class SQLConnect:
 
     def update_table(self):
         tables = self.tables
-
         # Search for lower case ticker in query 
         reg_search = re.search(self.ticker.lower(), str(tables))
         if reg_search != None:
