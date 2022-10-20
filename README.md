@@ -31,6 +31,6 @@ or
 - Allows for downloading new cryptos
 
 ### SQL Useful Queries
-SELECT table_name AS list\n
-FROM information_schema.tables\n
-WHERE table_schema='public'\n
+SELECT table_name AS list<br>
+FROM information_schema.tables<br>
+WHERE table_schema='public'<br>
