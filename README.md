@@ -31,6 +31,7 @@ or
 - Allows for downloading new cryptos
 
 ### SQL Useful Queries
+- Gives all table names in the database 
 SELECT table_name AS list<br>
 FROM information_schema.tables<br>
 WHERE table_schema='public'<br>
