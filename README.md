@@ -27,7 +27,7 @@ or
 - http://localhost:3000/
 
 ## Flask
-- Start flask_server.py
+- Start flask_server.py (run in separate terminal)
 - Allows for downloading new cryptos
 
 ### SQL Useful Queries

@@ -46,5 +46,5 @@ class SQL_tools:
 
 SQL = SQL_tools('localhost', 'postgres', 'mysecretpassword')
 SQL.check_tables()
-# SQL.delete_all()
-SQL.delete_select(['eth', 'btc'])
+SQL.delete_all()
+# SQL.delete_select(['eth', 'btc'])
