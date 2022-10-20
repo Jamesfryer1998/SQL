@@ -29,3 +29,8 @@ or
 ## Flask
 - Start flask_server.py
 - Allows for downloading new cryptos
+
+### SQL Useful Queries
+SELECT table_name AS list\n
+FROM information_schema.tables\n
+WHERE table_schema='public'\n
