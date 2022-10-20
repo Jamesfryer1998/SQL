@@ -9,7 +9,7 @@ class SymbolLoader(Resource):
         SQL.execute_values()
         SQL.check_tables()
         SQL.update_table()
-
+        
         return {'symbol': id, 'result': 'OK'}
 
 if __name__ == '__main__':

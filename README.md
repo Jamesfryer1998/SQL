@@ -16,7 +16,6 @@
 - 
 
 # Startup
-
 ## Docker
 - docker start some-postgres grafana (order dependant)
 - docker inspect james_network (checks if containers are connetced to network)
@@ -26,3 +25,7 @@
 - http://127.0.0.1:3000/
 or
 - http://localhost:3000/
+
+## Flask
+- Start flask_server.py
+- Allows for downloading new cryptos
