@@ -1,5 +1,6 @@
 from SQL_connect import *
 import json
+import time
 
 def open_json(path):
     with open(path) as f:

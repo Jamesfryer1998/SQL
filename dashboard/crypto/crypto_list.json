@@ -1,15 +1,17 @@
 {
-    "crypto":[
-        "BTC",
-        "ETH",
-        "ADA",
-        "LINK",
-        "TRX",
-        "SOL",
-        "BNB",
-        "XRP",
-        "LUNC",
-        "MANA",
-        "AVAX"
-    ]
+  "crypto": [
+    "ADA",
+    "ATOM",
+    "AVAX",
+    "BNB",
+    "BTC",
+    "ETH",
+    "FLOW",
+    "LINK",
+    "LUNC",
+    "MANA",
+    "SOL",
+    "TRX",
+    "XRP"
+  ]
 }

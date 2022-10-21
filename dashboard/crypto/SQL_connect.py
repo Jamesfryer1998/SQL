@@ -1,6 +1,7 @@
 import psycopg2
 import psycopg2.extras as extras
 from yfinance_download import *
+import json
 
 class SQLConnect:
     def __init__(self, ticker, host, user, password):
@@ -9,7 +10,7 @@ class SQLConnect:
         self.conn = psycopg2.connect(self.connect_string)
         self.time = datetime.datetime.now()
         self.tables = None
-        download = downloadData('Cache')
+        download = downloadData('/Users/james/Projects/SQL/Cache')
         download.download_save_data(ticker, 'ytd')
         download.remove_files()
         self.download = download
@@ -82,6 +83,25 @@ class SQLConnect:
                 self.tables = tables
                 cur.close()
 
+        tables = []
+        for i in range(0, len(self.tables)):
+            tables.append(self.tables[i][0].upper())
+
+        with open('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json', 'r+') as f:
+            data = json.load(f)
+            print(len(data['crypto']))
+            print(len(tables))
+            if len(data['crypto']) != len(tables):
+                difference = [x for x in tables if x not in set(data['crypto'])]
+                new_data = data['crypto'] + difference
+                new_dict = {"crypto":sorted(new_data)}
+                # json.dump(new_dict, f)
+                print(new_dict)
+                with open('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json', 'w', encoding='utf-8') as f:
+                    f.write(json.dumps(new_dict, indent=2))
+            else:
+                print('JSON: Cryptos match')
+
     def update_table(self):
         tables = self.tables
         # Search for lower case ticker in query 
@@ -125,9 +145,8 @@ class SQLConnect:
                         return 0
 
 # SQL = SQLConnect('LINK', 'localhost', 'postgres', 'mysecretpassword')
-# SQL.create_table()
-# SQL.execute_values()
+# # SQL.create_table()
+# # SQL.execute_values()
 # SQL.check_tables()
-
 # # Comment this out if creating table for first time (maybe wont matter)
 # SQL.update_table()
