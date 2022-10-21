@@ -47,4 +47,4 @@ class SQL_tools:
 SQL = SQL_tools('localhost', 'postgres', 'mysecretpassword')
 SQL.check_tables()
 # SQL.delete_all()
-SQL.delete_select(['flow'])
+# SQL.delete_select(['flow'])

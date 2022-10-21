@@ -95,7 +95,6 @@ class SQLConnect:
                 difference = [x for x in tables if x not in set(data['crypto'])]
                 new_data = data['crypto'] + difference
                 new_dict = {"crypto":sorted(new_data)}
-                # json.dump(new_dict, f)
                 print(new_dict)
                 with open('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json', 'w', encoding='utf-8') as f:
                     f.write(json.dumps(new_dict, indent=2))
