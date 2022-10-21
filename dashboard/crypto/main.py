@@ -19,7 +19,6 @@ def main():
         SQL.update_table()
 
     t2 = datetime.datetime.now()
-
     print(f'Programme excected in {t2 - t1}')
 
 main()

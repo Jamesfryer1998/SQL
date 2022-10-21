@@ -89,16 +89,14 @@ class SQLConnect:
 
         with open('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json', 'r+') as f:
             data = json.load(f)
-            print(len(data['crypto']))
-            print(len(tables))
             if len(data['crypto']) != len(tables):
                 difference = [x for x in tables if x not in set(data['crypto'])]
                 new_data = data['crypto'] + difference
                 new_dict = {"crypto":sorted(new_data)}
-                print(new_dict)
                 with open('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json', 'w', encoding='utf-8') as f:
                     f.write(json.dumps(new_dict, indent=2))
             else:
+                print('-------')
                 print('JSON: Cryptos match')
 
     def update_table(self):
