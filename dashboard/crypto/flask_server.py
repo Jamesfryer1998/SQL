@@ -6,8 +6,8 @@ class SymbolLoader(Resource):
     def get(self, id):
         SQL = SQLConnect(id, 'localhost', 'postgres', 'mysecretpassword')
         SQL.create_table()
-        SQL.execute_values()
         SQL.check_tables()
+        SQL.execute_values()
         SQL.update_table()
         
         return {'symbol': id, 'result': 'OK'}
