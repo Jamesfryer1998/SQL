@@ -1,18 +1,20 @@
-import numpy as np
 import pandas as pd
 import datetime
 import yfinance as yf
 import os
 import regex as re
+from SQL_tools import SQL_tools
 
 class downloadData:
     def __init__(self, file_path=None):
         self.time = datetime.datetime.now()
         self.file_path = file_path
         self.file = None
+        self.ticker = None
     
     def download_save_data(self, ticker, period, recent_first=False):
         date = self.time.date()
+        self.ticker = ticker
         file = f'{ticker}-{date}'
         print('Initializing search...')
 
@@ -27,14 +29,14 @@ class downloadData:
             df.index.rename('time', inplace=True)
             df.sort_values(by='time', ascending=False, inplace=True)
             df.index = pd.to_datetime(df.index)
-            df.dropna()
-
+            df.dropna(inplace=True)
+            
             if len(df) == 0:
                 raise Exception('No data found')
 
             if self.file_path == None:
                 raise Exception('Please specify file path.')
-        
+            
             df.to_csv(f'{self.file_path}/{file}.csv', sep='\t', encoding='utf-8')
 
         self.file = file

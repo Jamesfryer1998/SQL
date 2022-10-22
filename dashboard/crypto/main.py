@@ -1,24 +1,34 @@
-from SQL_connect import *
+from SQL_connect import SQLConnect
+import psycopg2
+from yfinance_download import downloadData
+import datetime
 import json
-import time
 
 def open_json(path):
     with open(path) as f:
         data = json.load(f)
-    return data['crypto']
+    return data
 
 def main():
     t1 = datetime.datetime.now()
     cryptos = open_json('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json')
-
-    for crypto in cryptos:
-        SQL = SQLConnect(crypto, 'localhost', 'postgres', 'mysecretpassword')
+    postgresSQL = open_json('/Users/james/Projects/SQL/dashboard/crypto/postgres_login.json')
+    
+    for crypto in cryptos['crypto']:
+        print(f'\n----------------{crypto}----------------\n')
+        SQL = SQLConnect(crypto, postgresSQL['host'], postgresSQL['user'], postgresSQL['password'])
         SQL.create_table()
-        SQL.execute_values()
         SQL.check_tables()
+        SQL.validate_data()
+        try:
+            SQL.execute_values()
+        except (Exception, psycopg2.errors.UndefinedTable) as error:
+            SQL.create_table()
+            SQL.execute_values()
         SQL.update_table()
-
+        
     t2 = datetime.datetime.now()
+    print('------------------------------------')
     print(f'Programme excected in {t2 - t1}')
 
 main()
