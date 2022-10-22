@@ -45,7 +45,7 @@ class downloadData:
             x = re.search(f'{self.time.date()}.csv', file)
             if x == None:
                 # REMOVES ALL FILES
-                os.remove(f'./{self.file_path}/{file}')
+                os.remove(f'{self.file_path}/{file}')
                 print(f'{file} removed')
                 # print('Starts with ETH')
 

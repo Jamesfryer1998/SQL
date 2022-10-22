@@ -1,6 +1,7 @@
 import psycopg2
 import psycopg2.extras as extras
 from yfinance_download import *
+from SQL_tools import *
 import json
 
 class SQLConnect:
@@ -113,9 +114,14 @@ class SQLConnect:
                     '''
                     cur.execute(query)
                     date = str(cur.fetchall()[0][0])
-                    
+                    print(date)
                     # Defining df dates
                     df = self.download.load_data()
+                    if (date not in df['time'].values):
+                        print (f'Date doesnt exist, deleting and reloading {self.ticker.upper()} data.')
+                        SQL_tools = SQL = SQL_tools('localhost', 'postgres', 'mysecretpassword')
+                        
+
                     start = df[df['time'] == date].index[0]
                     end = df[df['time'] == str(self.time.date())].index[0]
                     df_slice = df.iloc[end:start]
@@ -147,3 +153,4 @@ class SQLConnect:
 # SQL.check_tables()
 # # Comment this out if creating table for first time (maybe wont matter)
 # SQL.update_table()
+hello = 
