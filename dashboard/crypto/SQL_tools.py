@@ -37,8 +37,6 @@ class SQL_tools:
         
                     except (Exception, psycopg2.errors.UndefinedTable) as error:
                         print(f'    {table} does not exist.')
-                        # SQL = SQL_connect(table, self.host, self.user, self.password)
-                        # SQL.execute_values()
 
     def delete_all(self):
         print('Deleting all...')
