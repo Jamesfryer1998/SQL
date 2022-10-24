@@ -31,7 +31,8 @@ class SQLConnect:
             high FLOAT(4),
             low FLOAT(4),
             close FLOAT(4),
-            volume FLOAT(4)
+            volume FLOAT(4),
+            percent FLOAT(4)
         );
         '''
         with self.conn:

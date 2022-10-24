@@ -24,12 +24,14 @@ class downloadData:
             print(f'    Downloading {ticker}-USD - {period}')
             ticker_data = yf.Ticker(f'{ticker}-USD')
             historical_data = ticker_data.history(period=period)
+    
             df = pd.DataFrame(historical_data)
             df.drop(['Dividends', 'Stock Splits'], axis=1, inplace=True)
             df.index.rename('time', inplace=True)
             df.sort_values(by='time', ascending=False, inplace=True)
             df.index = pd.to_datetime(df.index)
             df.dropna(inplace=True)
+            df['percent'] = df['Close'].pct_change(periods=len(df)-1) * 100
             
             if len(df) == 0:
                 raise Exception('No data found')
