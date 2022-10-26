@@ -1,6 +1,5 @@
 from SQL_connect import SQLConnect
 import psycopg2
-from yfinance_download import downloadData
 import datetime
 import json
 

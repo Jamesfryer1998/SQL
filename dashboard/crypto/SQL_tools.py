@@ -23,6 +23,9 @@ class SQL_tools:
                 tables = cur.fetchall()
                 self.tables = tables
                 cur.close()
+                
+    def delete_rows(self, number_rows):
+        return
 
     def delete_select(self, select):
         print(f'Deleting {len(select)}...')

@@ -136,6 +136,7 @@ class SQLConnect:
                 with self.conn.cursor() as cur:
                     query = f'''SELECT time
                     FROM {self.ticker}
+                    ORDER BY time DESC
                     limit 1
                     '''
                     cur.execute(query)
@@ -156,7 +157,6 @@ class SQLConnect:
                         query  = f'''INSERT INTO {self.ticker} ({cols})
                         VALUES %s
                         '''
-                        
                         try:
                             extras.execute_values(cur, query, tuples, page_size=len(df))
                             self.conn.commit()
