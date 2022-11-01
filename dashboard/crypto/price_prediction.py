@@ -1,4 +1,4 @@
-from functions import *
+from data_utilities import *
 
 class PricePrediction:
     def __init__(self, ticker):

@@ -3,7 +3,6 @@ import datetime
 import yfinance as yf
 import os
 import regex as re
-from SQL_tools import SQL_tools
 
 class downloadData:
     def __init__(self, file_path=None):
@@ -16,12 +15,12 @@ class downloadData:
         date = self.time.date()
         self.ticker = ticker
         file = f'{ticker}-{date}'
-        print('Initializing search...')
+        # print('Initializing search...')
 
         if os.path.isfile(f'{self.file_path}/{file}.csv') == True:
-            print('     File exists - No download required.')
+            print('File exists - No download required.')
         else:
-            print(f'    Downloading {ticker}-USD - {period}')
+            print(f'Downloading {ticker}-USD - {period}')
             ticker_data = yf.Ticker(f'{ticker}-USD')
             historical_data = ticker_data.history(period=period)
     
@@ -48,17 +47,9 @@ class downloadData:
         for file in files:
             x = re.search(f'{self.time.date()}.csv', file)
             if x == None:
-                # REMOVES ALL FILES
                 os.remove(f'{self.file_path}/{file}')
                 print(f'{file} removed')
-                # print('Starts with ETH')
 
     def load_data(self):
         data = pd.read_csv(f'{self.file_path}/{self.file}.csv', sep='\t')
         return data
-
-# download = downloadData('Cache')
-# download.download_save_data('ETH', 'ytd')
-# data = download.load_data()
-# download.remove_files()
-# print(data)

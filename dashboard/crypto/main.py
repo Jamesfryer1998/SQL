@@ -1,12 +1,7 @@
 from SQL_connect import SQLConnect
 import psycopg2
 import datetime
-import json
-
-def open_json(path):
-    with open(path) as f:
-        data = json.load(f)
-    return data
+from data_utilities import open_json
 
 def main():
     t1 = datetime.datetime.now()
@@ -28,6 +23,7 @@ def main():
         
     t2 = datetime.datetime.now()
     print('------------------------------------')
-    print(f'Programme excected in {t2 - t1}')
+    num = len(cryptos['crypto'])
+    print(f'Programme excected in {t2 - t1} - {num} cryptos processed.')
 
 main()

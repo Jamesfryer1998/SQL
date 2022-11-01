@@ -71,8 +71,6 @@ class SQLConnect:
                 
                 with open('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json', 'w', encoding='utf-8') as f:
                     f.write(json.dumps(new_dict, indent=2))
-            else:
-                print('JSON: Cryptos match')
                 
     def validate_data(self):
         data = self.download.load_data()
@@ -111,7 +109,7 @@ class SQLConnect:
                 table_len = cur.fetchone()[0]
 
                 if table_len >= len(df):
-                    print('     Table at sufficient count.')
+                    print('Table at sufficient count.')
                     pass
                 elif table_len == 0:
                     try:
@@ -168,10 +166,3 @@ class SQLConnect:
                             return None
                     else:
                         return 0
-
-# SQL = SQLConnect('LINK', 'localhost', 'postgres', 'mysecretpassword')
-# # SQL.create_table()
-# # SQL.execute_values()
-# SQL.check_tables()
-# # Comment this out if creating table for first time (maybe wont matter)
-# SQL.update_table()
