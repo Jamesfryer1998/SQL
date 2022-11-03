@@ -11,9 +11,6 @@ from data_utilities import remove_files
 class SQLConnect:
     def __init__(self, ticker, path,  host, user, password):
         self.ticker = ticker
-        # self.host = host
-        # self.user = user
-        # self.password = password
         self.connect_string = f'host={host} dbname=postgres user={user} password={password}'
         self.conn = psycopg2.connect(self.connect_string)
         self.time = datetime.datetime.now()
@@ -21,7 +18,6 @@ class SQLConnect:
         download = downloadData(path)
         download.download_save_data(ticker, 'ytd')
         remove_files(path)
-        # download.remove_files()
         self.download = download
 
     def create_table(self):
@@ -124,7 +120,6 @@ class SQLConnect:
                         return None
                     print(f"    Values populated to {self.ticker}")
                     cur.close()   
-                
                 
     def update_table(self):
         tables = self.tables

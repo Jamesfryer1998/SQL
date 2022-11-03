@@ -21,7 +21,7 @@ def remove_files(file_path):
     time = datetime.datetime.now()
     files = os.listdir(file_path)
     for file in files:
-        x = re.search(f'{time.date()}', file)
-        if x == None:
+        search = re.search(f'{time.date()}', file)
+        if search == None:
             os.remove(f'{file_path}/{file}')
             print(f'{file} removed')

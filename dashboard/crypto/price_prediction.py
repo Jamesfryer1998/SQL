@@ -7,8 +7,11 @@ from keras import layers
 from sklearn.metrics import r2_score
 
 class PricePrediction:
-    def __init__(self, ticker):
+    def __init__(self, ticker, path):
         self.ticker = ticker
+        self.path = path
+        date = datetime.datetime.now()
+        self.date = date.date()
         self.scaler = None
         self.x_train = None
         self.y_train = None
@@ -73,10 +76,19 @@ class PricePrediction:
         predictions = self.scaler.inverse_transform(predictions)
         rmse = np.sqrt(np.mean(predictions - self.y_test)**2)
         r2 = r2_score(self.y_test, predictions)
-        print(r2)
-        # return predictions
 
-prediction = PricePrediction('ETH')
+        pred_dict = {
+            'time':str(self.date),
+            'rmse':rmse,
+            'r2_score':r2
+        }
+
+        with open(f'{self.path}/{self.ticker}-{self.date}-pred.json', 'w', encoding='utf-8') as file:
+            json.dump(pred_dict, file, indent=2)
+
+        print(r2)
+
+prediction = PricePrediction('ETH', '/Users/james/Projects/SQL/Cache/crypto_predictions')
 prediction.data_preparation()
 prediction.model_creation()
 prediction.train_model()
