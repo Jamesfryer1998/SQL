@@ -62,7 +62,9 @@ class PricePrediction:
     def train_model(self):
         model = self.model
         model.compile(optimizer='adam', loss='mean_squared_error')
-        model.fit(self.x_train, self.y_train, batch_size=8, epochs=50)
+        model.fit(self.x_train, self.y_train, batch_size=32, epochs=75, verbose=0)
+        print('Model fitting...')
+        print('Model complete, saving predictions.')
         self.model = model
 
     def predict(self):
@@ -70,15 +72,12 @@ class PricePrediction:
         predictions = model.predict(self.x_test)
         predictions = self.scaler.inverse_transform(predictions)
         rmse = np.sqrt(np.mean(predictions - self.y_test)**2)
-        new_y_test = []
-        for i in self.y_test:
-            new_y_test.append([i])
-
-        print(r2_score(self.y_test, predictions))
-        return predictions
+        r2 = r2_score(self.y_test, predictions)
+        print(r2)
+        # return predictions
 
 prediction = PricePrediction('ETH')
 prediction.data_preparation()
 prediction.model_creation()
 prediction.train_model()
-print(prediction.predict())
+prediction.predict()
