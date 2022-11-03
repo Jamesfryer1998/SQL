@@ -6,6 +6,7 @@ import datetime
 import re
 import json
 from SQL_tools import SQL_tools
+from data_utilities import remove_files
 
 class SQLConnect:
     def __init__(self, ticker, path,  host, user, password):
@@ -19,7 +20,8 @@ class SQLConnect:
         self.tables = None
         download = downloadData(path)
         download.download_save_data(ticker, 'ytd')
-        download.remove_files()
+        remove_files(path)
+        # download.remove_files()
         self.download = download
 
     def create_table(self):

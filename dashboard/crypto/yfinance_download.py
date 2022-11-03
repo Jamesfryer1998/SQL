@@ -42,13 +42,13 @@ class downloadData:
 
         self.file = file
 
-    def remove_files(self):
-        files = os.listdir(self.file_path)
-        for file in files:
-            x = re.search(f'{self.time.date()}.csv', file)
-            if x == None:
-                os.remove(f'{self.file_path}/{file}')
-                print(f'{file} removed')
+    # def remove_files(self):
+    #     files = os.listdir(self.file_path)
+    #     for file in files:
+    #         x = re.search(f'{self.time.date()}', file)
+    #         if x == None:
+    #             os.remove(f'{self.file_path}/{file}')
+    #             print(f'{file} removed')
 
     def load_data(self):
         data = pd.read_csv(f'{self.file_path}/{self.file}.csv', sep='\t')

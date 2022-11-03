@@ -1,6 +1,8 @@
 import json
 import pandas as pd
 import datetime
+import os
+import re
 
 def open_json(path):
     with open(path) as f:
@@ -14,3 +16,12 @@ def load_file(ticker):
         return data
     except:
         raise Exception('Ticker not found')
+
+def remove_files(file_path):
+    time = datetime.datetime.now()
+    files = os.listdir(file_path)
+    for file in files:
+        x = re.search(f'{time.date()}', file)
+        if x == None:
+            os.remove(f'{file_path}/{file}')
+            print(f'{file} removed')
