@@ -38,10 +38,11 @@ class SQLConnect:
                 try:
                     cur.execute(query)
                     self.conn.commit()
-                    print('SQL: Query Successfully Excecuted.')
-                    print(f'    Table {self.ticker} created')
+                    # print('SQL: Query Successfully Excecuted.')
+                    # print(f'    Table {self.ticker} created')
                 except psycopg2.errors.DuplicateTable as err:
-                    print(f'SQL: {err}')
+                    pass
+                    # print(f'SQL: {err}')
                     
     def check_tables(self):
         with self.conn:
@@ -80,7 +81,7 @@ class SQLConnect:
         new_dates = new_dates[0].dt.strftime('%Y-%m-%d')
         
         if len(new_dates) != len(data):
-            print(f'{self.ticker.upper()} data corrputed re-uploading table...')
+            # print(f'{self.ticker.upper()} data corrputed re-uploading table...')
             SQL_tool = SQL_tools('localhost', 'postgres', 'mysecretpassword')
             SQL_tool.check_tables()
             SQL_tool.delete_select([f'{self.ticker}'])
@@ -107,7 +108,7 @@ class SQLConnect:
                 table_len = cur.fetchone()[0]
 
                 if table_len >= len(df):
-                    print('Table at sufficient count.')
+                    # print('Table at sufficient count.')
                     pass
                 elif table_len == 0:
                     try:
@@ -118,7 +119,7 @@ class SQLConnect:
                         self.conn.rollback()
                         cur.close()
                         return None
-                    print(f"    Values populated to {self.ticker}")
+                    # print(f"    Values populated to {self.ticker}")
                     cur.close()   
                 
     def update_table(self):
@@ -155,9 +156,9 @@ class SQLConnect:
                         try:
                             extras.execute_values(cur, query, tuples, page_size=len(df))
                             self.conn.commit()
-                            print(f'     {self.ticker} successfully updated.')
+                            # print(f'     {self.ticker} successfully updated.')
                         except (Exception, psycopg2.DatabaseError) as error:
-                            print("Error: %s" % error)
+                            # print("Error: %s" % error)
                             self.conn.rollback()
                             cur.close()
                             return None

@@ -18,9 +18,10 @@ class downloadData:
         # print('Initializing search...')
 
         if os.path.isfile(f'{self.file_path}/{file}.csv') == True:
-            print('File exists - No download required.')
+            pass
+            # print('File exists - No download required.')
         else:
-            print(f'Downloading {ticker}-USD - {period}')
+            # print(f'Downloading {ticker}-USD - {period}')
             ticker_data = yf.Ticker(f'{ticker}-USD')
             historical_data = ticker_data.history(period=period)
     

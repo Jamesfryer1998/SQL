@@ -27,4 +27,5 @@ def main():
     num = len(crypto_list['crypto'])
     print(f'Programme excected in {t2 - t1} - {num} cryptos processed.')
 
-main()
+if __name__ == '__main__':
+    main()
