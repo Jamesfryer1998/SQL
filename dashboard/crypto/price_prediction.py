@@ -82,11 +82,10 @@ class PricePrediction:
             'rmse':rmse,
             'r2_score':r2
         }
+        # with open(f'{self.path}/{self.ticker}-{self.date}-pred.json', 'w', encoding='utf-8') as file:
+        #     json.dump(pred_dict, file, indent=2)
 
-        with open(f'{self.path}/{self.ticker}-{self.date}-pred.json', 'w', encoding='utf-8') as file:
-            json.dump(pred_dict, file, indent=2)
-
-        print(r2)
+        return pred_dict
 
 prediction = PricePrediction('ETH', '/Users/james/Projects/SQL/Cache/crypto_predictions')
 prediction.data_preparation()
