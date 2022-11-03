@@ -2,9 +2,9 @@ import math
 import numpy as np
 from data_utilities import *
 from sklearn.preprocessing import MinMaxScaler
-import tensorflow as tf
 from tensorflow import keras
 from keras import layers
+from sklearn.metrics import r2_score
 
 class PricePrediction:
     def __init__(self, ticker):
@@ -15,9 +15,11 @@ class PricePrediction:
         self.x_test = None
         self.y_test = None
         self.model = None
+        self.r2_score = None
 
     def data_preparation(self):
         stock_data = load_file(self.ticker)
+        stock_data.sort_values(by='time', ascending=True, inplace=True)
         close_prices = stock_data['Close']
         values = close_prices.values
         training_data_len = math.ceil(len(values)* 0.8)
@@ -60,7 +62,7 @@ class PricePrediction:
     def train_model(self):
         model = self.model
         model.compile(optimizer='adam', loss='mean_squared_error')
-        model.fit(self.x_train, self.y_train, batch_size= 1, epochs=3)
+        model.fit(self.x_train, self.y_train, batch_size=8, epochs=50)
         self.model = model
 
     def predict(self):
@@ -68,10 +70,15 @@ class PricePrediction:
         predictions = model.predict(self.x_test)
         predictions = self.scaler.inverse_transform(predictions)
         rmse = np.sqrt(np.mean(predictions - self.y_test)**2)
+        new_y_test = []
+        for i in self.y_test:
+            new_y_test.append([i])
+
+        print(r2_score(self.y_test, predictions))
         return predictions
 
 prediction = PricePrediction('ETH')
 prediction.data_preparation()
 prediction.model_creation()
 prediction.train_model()
-print(len(prediction.predict()))
+print(prediction.predict())

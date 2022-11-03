@@ -8,7 +8,7 @@ import json
 from SQL_tools import SQL_tools
 
 class SQLConnect:
-    def __init__(self, ticker, host, user, password):
+    def __init__(self, ticker, path,  host, user, password):
         self.ticker = ticker
         # self.host = host
         # self.user = user
@@ -17,7 +17,7 @@ class SQLConnect:
         self.conn = psycopg2.connect(self.connect_string)
         self.time = datetime.datetime.now()
         self.tables = None
-        download = downloadData('/Users/james/Projects/SQL/Cache')
+        download = downloadData(path)
         download.download_save_data(ticker, 'ytd')
         download.remove_files()
         self.download = download

@@ -5,12 +5,13 @@ from data_utilities import open_json
 
 def main():
     t1 = datetime.datetime.now()
-    cryptos = open_json('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json')
+    crypto_cache = '/Users/james/Projects/SQL/Cache/crypto_data'
+    crypto_list = open_json('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json')
     postgresSQL = open_json('/Users/james/Projects/SQL/dashboard/crypto/postgres_login.json')
     
-    for crypto in cryptos['crypto']:
+    for crypto in crypto_list['crypto']:
         print(f'\n----------------{crypto}----------------\n')
-        SQL = SQLConnect(crypto, postgresSQL['host'], postgresSQL['user'], postgresSQL['password'])
+        SQL = SQLConnect(crypto, crypto_cache, postgresSQL['host'], postgresSQL['user'], postgresSQL['password'])
         SQL.create_table()
         SQL.check_tables()
         SQL.validate_data()
@@ -23,7 +24,7 @@ def main():
         
     t2 = datetime.datetime.now()
     print('------------------------------------')
-    num = len(cryptos['crypto'])
+    num = len(crypto_list['crypto'])
     print(f'Programme excected in {t2 - t1} - {num} cryptos processed.')
 
 main()

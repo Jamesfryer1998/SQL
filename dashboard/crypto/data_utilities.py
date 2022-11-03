@@ -10,7 +10,7 @@ def open_json(path):
 def load_file(ticker):
     date = datetime.datetime.now().date()
     try:
-        data = pd.read_csv(f'/Users/james/Projects/SQL/Cache/{ticker}-{date}.csv', sep='\t')
+        data = pd.read_csv(f'/Users/james/Projects/SQL/Cache/crypto_data/{ticker}-{date}.csv', sep='\t')
         return data
     except:
         raise Exception('Ticker not found')
