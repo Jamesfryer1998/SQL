@@ -3,6 +3,7 @@ import psycopg2.extras as extras
 import pandas as pd
 from yfinance_download import downloadData
 import datetime
+import time
 import re
 import json
 from SQL_tools import SQL_tools
@@ -22,7 +23,7 @@ class SQLConnect:
 
     def create_table(self):
         query = f'''
-        CREATE TABLE {self.ticker} (
+        CREATE TABLE IF NOT EXISTS {self.ticker} (
             id SERIAL PRIMARY KEY,
             time DATE,
             open FLOAT(4),

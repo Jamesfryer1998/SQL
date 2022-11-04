@@ -17,10 +17,12 @@ def docker():
         found.append(search(name, test))
 
     if sum(found) == 2:
-        print('Stopping docker containers')
+        print('Stopping docker containers...')
         os.system('docker stop some-postgres grafana')
+        print('Containers stopped.')
     else:
-        print('Starting docker containers')
+        print('Starting docker containers...')
         os.system('docker start some-postgres grafana')
-
+        print('Containers started.')
+        
 docker()

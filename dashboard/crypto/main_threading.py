@@ -1,3 +1,5 @@
+import os
+import time
 import threading
 import datetime
 from data_utilities import open_json
@@ -35,9 +37,16 @@ def main():
 
     print('------------------------------------')
     t2 = datetime.datetime.now()
-    print('All cryptos successfully processed.')
     print(f'Programme excected in {t2 - t1} - {num} cryptos processed.')
 
 if __name__ == '__main__':
-    for i in range(0, 3):
+    main()
+    time.sleep(1)
+    _, _, files = next(os.walk("/Users/james/Projects/SQL/Cache/crypto_data"))
+    file_count = len(files)
+    crypto_list = open_json('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json')
+
+    if file_count != len(crypto_list['crypto']):
         main()
+    else:
+        print('All cryptos successfully processed.')
