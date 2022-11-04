@@ -165,3 +165,14 @@ class SQLConnect:
                             return None
                     else:
                         return 0
+
+    def load_data(self):
+        self.create_table()
+        self.check_tables()
+        self.validate_data()
+        try:
+            self.execute_values()
+        except (Exception, psycopg2.errors.UndefinedTable) as error:
+            self.create_table()
+            self.execute_values()
+        self.update_table()
