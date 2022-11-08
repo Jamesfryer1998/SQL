@@ -10,7 +10,7 @@ from SQL_tools import SQL_tools
 from data_utilities import remove_files
 
 class SQLConnect:
-    def __init__(self, ticker, path,  host, user, password):
+    def __init__(self, ticker, path, host, user, password):
         self.ticker = ticker
         self.connect_string = f'host={host} dbname=postgres user={user} password={password}'
         self.conn = psycopg2.connect(self.connect_string)

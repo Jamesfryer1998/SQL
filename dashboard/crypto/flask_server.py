@@ -4,7 +4,8 @@ from SQL_connect import *
 
 class SymbolLoader(Resource):
     def get(self, id):
-        SQL = SQLConnect(id, 'localhost', 'postgres', 'mysecretpassword')
+        crypto_cache = '/Users/james/Projects/SQL/Cache/crypto_data'
+        SQL = SQLConnect(id, crypto_cache, 'localhost', 'postgres', 'mysecretpassword')
         SQL.create_table()
         SQL.check_tables()
         SQL.execute_values()
