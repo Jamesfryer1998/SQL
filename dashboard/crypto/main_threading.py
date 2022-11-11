@@ -8,20 +8,8 @@ from SQL_connect import SQLConnect
 def worker(crypto, crypto_cache, postgres):
     postgresSQL = postgres
     
-    # print(f'\n----------------{crypto}----------------\n')
     SQL = SQLConnect(crypto, crypto_cache, postgresSQL['host'], postgresSQL['user'], postgresSQL['password'])
     SQL.load_data()
-    # SQL.create_table()
-    # SQL.check_tables()
-    # SQL.validate_data()
-    # try:
-    #     SQL.execute_values()
-    # except (Exception, psycopg2.errors.UndefinedTable) as error:
-    #     SQL.create_table()
-    #     SQL.execute_values()
-    # SQL.update_table()
-
-    # print(f'{crypto.upper()} successfully processed.')
 
 def main():
     t1 = datetime.datetime.now()  
