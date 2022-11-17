@@ -29,7 +29,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-    time.sleep(1)
     _, _, files = next(os.walk("/Users/james/Projects/SQL/Cache/crypto_data"))
     file_count = len(files)
     crypto_list = open_json('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json')
@@ -37,4 +36,5 @@ if __name__ == '__main__':
     if file_count != len(crypto_list['crypto']):
         main()
     else:
+        time.sleep(0.5)
         print('All cryptos successfully processed.')

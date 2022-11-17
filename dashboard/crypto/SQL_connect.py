@@ -125,10 +125,8 @@ class SQLConnect:
                 
     def update_table(self):
         tables = self.tables
-        # Search for lower case ticker in query 
         reg_search = re.search(self.ticker.lower(), str(tables))
         if reg_search != None:
-            # get the current date
             with self.conn:
                 with self.conn.cursor() as cur:
                     query = f'''SELECT time
@@ -138,19 +136,15 @@ class SQLConnect:
                     '''
                     cur.execute(query)
                     date = str(cur.fetchall()[0][0])
-                    
-                    # Defining df dates
+
                     df = self.download.load_data() 
                     start = df[df['time'] == date].index[0]
                     end = df[df['time'] == str(self.time.date())].index[0]
                     df_slice = df.iloc[end:start]
 
                     if len(df_slice) >= 1:
-                        # Extracting info from df
                         tuples = [tuple(x) for x in df_slice.to_numpy()]
                         cols = ','.join(list(df_slice.columns))
-
-                        # SQL query and connection
                         query  = f'''INSERT INTO {self.ticker} ({cols})
                         VALUES %s
                         '''
