@@ -11,6 +11,7 @@
     "FTT",
     "FTX",
     "LINK",
+    "LTC",
     "LUNC",
     "MANA",
     "MATIC",
@@ -18,6 +19,7 @@
     "SOL",
     "TRX",
     "XLM",
+    "XMR",
     "XRP"
   ]
 }

@@ -6,10 +6,7 @@ class SymbolLoader(Resource):
     def get(self, id):
         crypto_cache = '/Users/james/Projects/SQL/Cache/crypto_data'
         SQL = SQLConnect(id, crypto_cache, 'localhost', 'postgres', 'mysecretpassword')
-        SQL.create_table()
-        SQL.check_tables()
-        SQL.execute_values()
-        SQL.update_table()
+        SQL.load_data()
         
         return {'symbol': id, 'result': 'OK'}
 
@@ -18,5 +15,5 @@ if __name__ == '__main__':
     api = Api(app)
     api.add_resource(SymbolLoader, '/load/<string:id>')
     app.run(debug=True)
-    app.run(host='127.0.0.1')
-    # app.run(host='0.0.0.0')
+    # app.run(host='127.0.0.1')
+    app.run(host='0.0.0.0')
