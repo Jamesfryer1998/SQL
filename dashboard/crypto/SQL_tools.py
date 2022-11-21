@@ -1,7 +1,7 @@
 import psycopg2
 import datetime
 
-class SQL_tools:
+class SQLTools:
     def __init__(self, host, user, password):
         self.host = host
         self.user = user

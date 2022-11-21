@@ -1,12 +1,14 @@
 import psycopg2
 import psycopg2.extras as extras
 import pandas as pd
+# from __init__ import downloadData
 from yfinance_download import downloadData
 import datetime
 import time
 import re
 import json
-from SQL_tools import SQL_tools
+
+from SQL_tools import SQLTools
 from data_utilities import remove_files
 
 class SQLConnect:
@@ -83,7 +85,7 @@ class SQLConnect:
         
         if len(new_dates) != len(data):
             # print(f'{self.ticker.upper()} data corrputed re-uploading table...')
-            SQL_tool = SQL_tools('localhost', 'postgres', 'mysecretpassword')
+            SQL_tool = SQLTools('localhost', 'postgres', 'mysecretpassword')
             SQL_tool.check_tables()
             SQL_tool.delete_select([f'{self.ticker}'])
         return

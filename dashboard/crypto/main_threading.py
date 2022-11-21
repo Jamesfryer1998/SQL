@@ -2,12 +2,11 @@ import os
 import time
 import threading
 import datetime
-from data_utilities import open_json
+# from data_utilities import open_json
 from SQL_connect import SQLConnect
+from __init__ import open_json
 
-def worker(crypto, crypto_cache, postgres):
-    postgresSQL = postgres
-    
+def worker(crypto, crypto_cache, postgresSQL):
     SQL = SQLConnect(crypto, crypto_cache, postgresSQL['host'], postgresSQL['user'], postgresSQL['password'])
     SQL.load_data()
 
