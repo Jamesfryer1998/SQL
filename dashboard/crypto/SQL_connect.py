@@ -84,11 +84,9 @@ class SQLConnect:
         new_dates = new_dates[0].dt.strftime('%Y-%m-%d')
         
         if len(new_dates) != len(data):
-            # print(f'{self.ticker.upper()} data corrputed re-uploading table...')
             SQL_tool = SQLTools('localhost', 'postgres', 'mysecretpassword')
             SQL_tool.check_tables()
             SQL_tool.delete_select([f'{self.ticker}'])
-        return
 
     def execute_values(self):
         """
