@@ -12,7 +12,6 @@ def worker(crypto, crypto_cache, postgresSQL):
 
 def main():
     t1 = datetime.datetime.now()  
-
     crypto_cache = '/Users/james/Projects/SQL/Cache/crypto_data'
     crypto_list = open_json('/Users/james/Projects/SQL/dashboard/crypto/crypto_list.json')
     postgresSQL = open_json('/Users/james/Projects/SQL/dashboard/crypto/postgres_login.json')
